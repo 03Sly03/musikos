@@ -46,14 +46,14 @@ jobs:
         host: ${{ secrets.VPS_HOST }}
         username: ${{ secrets.VPS_USERNAME }}
         key: ${{ secrets.VPS_PRIVATE_KEY }}
-        port: 22
+        port: 31129
         script: |
           # Stopper et supprimer l'ancien conteneur Docker
           docker stop videotek || true
           docker rm videotek || true
 
           # Télécharger la dernière image depuis Docker Hub
-          docker pull 03sly03/videotek:latest
+          docker pull ${{ secrets.DOCKER_USERNAME }}/videotek:latest
 
           # Lancer le conteneur avec la dernière image
-          docker run -d -p 8080:80 --name videotek 03sly03/videotek:latest
+          docker run -d -p 8080:80 --name videotek ${{ secrets.DOCKER_USERNAME }}/videotek:latest
