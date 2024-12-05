@@ -28,8 +28,8 @@ jobs:
 
     - name: Build and Push Docker image
       run: |
-        docker build -t ${{ secrets.DOCKER_USERNAME }}/videotek:latest .  # Construire l'image Docker avec le tag
-        docker push ${{ secrets.DOCKER_USERNAME }}/videotek:latest  # Pousser l'image vers Docker Hub (ou un autre registre)
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/musikos:latest .  # Construire l'image Docker avec le tag
+        docker push ${{ secrets.DOCKER_USERNAME }}/musikos:latest  # Pousser l'image vers Docker Hub (ou un autre registre)
 
   # Job de déploiement
   deploy:
@@ -49,11 +49,11 @@ jobs:
         port: 31129
         script: |
           # Stopper et supprimer l'ancien conteneur Docker
-          docker stop videotek || true
-          docker rm videotek || true
+          docker stop musikos || true
+          docker rm musikos || true
 
           # Télécharger la dernière image depuis Docker Hub
-          docker pull ${{ secrets.DOCKER_USERNAME }}/videotek:latest
+          docker pull ${{ secrets.DOCKER_USERNAME }}/musikos:latest
 
           # Lancer le conteneur avec la dernière image
-          docker run -d -p 8080:80 --name videotek ${{ secrets.DOCKER_USERNAME }}/videotek:latest
+          docker run -d -p 8080:80 --name musikos ${{ secrets.DOCKER_USERNAME }}/musikos:latest
