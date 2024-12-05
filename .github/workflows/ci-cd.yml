@@ -56,4 +56,4 @@ jobs:
           docker pull ${{ secrets.DOCKER_USERNAME }}/musikos:latest
 
           # Lancer le conteneur avec la dernière image
-          docker run -d -p 80:80 --name musikos ${{ secrets.DOCKER_USERNAME }}/musikos:latest
+          docker run -d --name musikos --network my-network ${{ secrets.DOCKER_USERNAME }}/musikos:latest
